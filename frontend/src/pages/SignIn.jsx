@@ -1,11 +1,14 @@
 import { useState } from "react"
 import Button from "../components/Button"
 import Input from "../components/Input"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { api } from "../api/api"
+import { useUserStore } from "../store/useUserStore"
 
 const SignIn = () => {
     const [error, setError] = useState("")
+    const setSession = useUserStore(state => state.setSession)
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -20,7 +23,8 @@ const SignIn = () => {
         
                 try {
                     const res = await api.signinUser(user)
-                    console.log(res)
+                    setSession(res.data)
+                    navigate("/")
                 } catch (error) {
                     console.error(error)
                     setError(error.response.data.error) 
