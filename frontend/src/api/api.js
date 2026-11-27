@@ -40,5 +40,19 @@ const createMessage = async (message) => {
     return res
 }
 
+const deleteMessage = async (id) => {
+    const res = await apiInstance.delete(`/messages/${id}`)
+    return res
+}
 
-export const api = {registerUser, signinUser, getMessages, createMessage}
+const likeMessage = async (id) => {
+    const res = await apiInstance.post(`/messages/${id}/like`)
+    return res
+}
+
+const reportMessage = async (id) => {
+    const res = await apiInstance.post(`/messages/${id}/report`)
+    return res
+}
+
+export const api = {registerUser, signinUser, getMessages, createMessage, deleteMessage, likeMessage, reportMessage}
